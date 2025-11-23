@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            font-family: monospace;
+        }
+        .Page{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows:800px 800px 800px 800px;
+            grid-template-areas:
+            "h h h h h h" 
+            "d d d d p p "
+            "m m l l l l "
+            "n n n n n n "
+            ;
+        }
+        .Head{
+            position: fixed;
+            grid-area: h;
+            background-color: #151414;
+            color: #fffafb;
+            text-align: center;
+            padding: 300px;
+
+        }
+        .Head h1{
+            font-size: 100px;
+        }
+        .Description{
+            grid-area: d;
+            padding: 100px;
+            text-align: center;
+            color:#151414;
+            height:auto ;
+            width: auto;
+            background-color: #fffafb;
+            font-size: 20px;
+        }
+        .Description h2, .Newsletter h2, .Location h2{
+            font-size: 35px;
+        }
+        .Poster{
+            grid-area: p;
+            color: #fffafb;
+            height: 800px;
+            width: auto;
+            background-color: #151414;
+            background-size: cover;
+            background-size: 70 auto;
+            background-repeat: no-repeat;
+            animation: backgroundAndTextChange 15s infinite;
+            transition: background-image 1s ease-in-out;
+        }
+
+        /* Combined Background and Text Animation */
+        @keyframes backgroundAndTextChange 
+        {
+            0% {
+                background-image: url(m1.jpg);
+            }
+            25% {
+                background-image: url(m1.jpg);
+            }
+            26% {
+                background-image: url(m2.jpg);
+            }
+            50% {
+                background-image: url(m2.jpg);
+            }
+            51% {
+                background-image: url(m3.jpg);
+            }
+            75% {
+                background-image: url(m3.jpg);
+            }
+            76%{
+                background-image: url(m4.jpg);
+            }
+            100%{
+                background-image: url(m4.jpg);
+            }
+        }
+        .Map{
+            grid-area: m;
+            background-color: #2b2c28;
+            padding:100px ;
+
+        }
+        
+        .Location{
+            grid-area: l;
+            background-color: #2b2c28;
+            width: auto;
+            color: #fffafb;
+            padding: 100px 100px 100px 700px;
+            font-size: 20px;
+            padding: 100px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .Newsletter{
+            grid-area: n;
+            background-color:#a63446;
+            width: auto;
+            color:#151414;
+            padding: 100px;
+            text-align: center;
+            font-size: 20px;
+
+
+        }
+        /* Sidebar Toggle Checkbox - Hidden */
+        .sidebar-checkbox {
+            display: none;
+        }
+
+        /* Sidebar Toggle Label (Button) */
+        .sidebar-toggle-label {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+        /* Sidebar Style */
+        .sidebar {
+            
+            width: 400px;
+            height: 100vh;
+            background-color:black;
+            color: white;
+
+            position: fixed;
+            top: 0;
+            left: -400px;  /* Hidden initially */
+            transition: left 0.3s ease;
+            padding-top: 75px;
+            overflow: auto;
+        }
+        
+        .sidebar h2 {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar ul li a {
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #b97375;
+            color: white;
+        }
+
+        /* Close Button in Sidebar */
+        .close-btn {
+            font-size: 20px;
+            color: white;
+            background-color: black;
+            border: none;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+        /* Content Style */
+        .content {
+            margin-left: 20px;
+            padding: 20px;
+            flex: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Sidebar Active State when Checkbox is Checked */
+        .sidebar-checkbox:checked ~ .sidebar {
+            left: 0;
+        }
+        .sidebar-checkbox:checked ~ .Page {
+            
+            filter: blur(5px);
+        } 
+
+        /* Hide Open Button when Sidebar is Open */
+        .sidebar-checkbox:checked ~ .sidebar-toggle-label {
+            display: none;
+        } 
+        #background-video {
+            height: 100vh;
+            width: 100vw;
+            object-fit: cover;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+        @media (max-width: 750px) {
+            #background-video { display: none; }
+            body {
+            background: url(bg.jpg) no-repeat;
+            background-size: cover;
+            }
+        }
+
+        .sidebar-toggle-label {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            color: black;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+        .Head:hover .sidebar-toggle-label{
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            right: 20%;
+            color: red;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+        .Description video{
+ 
+            display:block;
+
+            width:100%;
+            height:100%;
+    
+            /* Scale video to container size */
+            object-fit: cover;
+            object-position: center;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="Page">
+        <input type="checkbox" id="sidebar-toggle" class="sidebar-checkbox">
+        <label for="sidebar-toggle" class="sidebar-toggle-label">☰</label>
+    
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <label for="sidebar-toggle" class="close-btn">×</label>
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="Head">
+            <video id="background-video" autoplay loop muted poster="bg.jpg">
+                <source src="bgv.mp4" type="video/mp4">
+              </video>
+            <h1>A27.</h1>
+        </div>
+
+        <div class="Description">
+            <h2>Featured This Week.</h2>
+            <br>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis totam pariatur quasi explicabo placeat ipsam similique quidem beatae. Voluptatem alias excepturi impedit, delectus laudantium, pariatur id vero facere expedita ullam laboriosam ratione possimus voluptate molestiae obcaecati magni assumenda. Pariatur veritatis, maxime placeat officiis velit animi fugit sequi nemo. Tempore, mollitias
+            <br><br>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, dolor. Ad voluptas ipsa illum laboriosam molestiae veritatis possimus sed repellendus optio, dolores explicabo reiciendis debitis nihil corrupti quaerat itaque facere.
+        </div>
+        <div class="Poster">
+            
+        </div>
+        <div class="Map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30378.49796996931!2d-73.97885009690188!3d40.73215298091438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a2e15c97d1%3A0x1152a7f60acb6f38!2sAcademy%20Records%20%26%20CDs!5e0!3m2!1sen!2sin!4v1731646703434!5m2!1sen!2sin" width="668px" height="600px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="Location">
+            <h2>We are now OPEN.</h2>
+            <br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita recusandae iusto dignissimos ut quas ea ratione adipisci? Ullam facere alias perspiciatis id accusantium soluta quasi modi obcaecati esse, tenetur harum incidunt veritatis tempora excepturi repellendus animi ipsum assumenda amet aliquid commodi aperiam iure delectus nam itaque. Voluptas accusamus dicta nulla!
+            <br>
+
+            
+        </div>
+        <div class="Newsletter">
+            <h2>Sign Up for our Newsletter.</h2>
+            <br>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. A quam repellat illo amet vitae ipsum minima impedit doloremque vel veritatis.
+            <br>
+            <br>
+            <br>
+
+            <form >
+                <input type="email" name="mail" id="mail">
+                <input type="button" placeholder="Sign Up">
+            </form>
+
+
+        </div>
+    </div> 
+
+</body>
+</html>

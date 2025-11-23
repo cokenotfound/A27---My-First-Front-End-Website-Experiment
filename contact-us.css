@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Parkinsans:wght@300..800&family=Playwrite+AU+VIC+Guides&family=Playwrite+IE+Guides&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
+
+@media screen and (max-width:600px) {
+    .Page {
+    display: grid;
+    grid-template-columns: 600px ;
+    grid-template-rows: 100px 600px 1200px 1200px 600px;
+    grid-template-areas:
+        "h  "
+        "m m "
+        "l l "
+        "nl nl "
+        "n n ";
+    position: relative;
+    transition: filter 0.3s ease; 
+    animation: fadeIn 1s 0s forwards;
+    }
+
+    .Location, .Newsletter{
+        
+        padding-left: 150px ;
+        padding-top: 50px;
+    
+    }
+
+
+
+}
+
+*{
+    margin: 0px;
+    font-family: "Texturina", serif;
+    font-optical-sizing: auto;
+    font-weight:400;
+    font-style: normal;
+}
+
+h1,h2,h3,h4{
+    font-family: "Bebas Neue", serif;
+font-weight: 400;
+font-style: normal;
+}
+
+        .Head {
+            grid-area: h ;
+            background-image: url(bannerr.png);
+            background-size: cover;            
+            position: fixed;
+            z-index: 4;
+            
+            text-align: center;
+            animation: fadeIn 1s 0s forwards;
+            height: 150px;
+            width: 100%;
+        }
+        .Head h1 {
+            color: #fffafb;
+            font-size: 60px;
+            padding: 40px;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        .Page {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 150px 800px 800px;
+            grid-template-areas:
+                "h h h h h h"
+                "m m l l l l"
+                "nl nl nl n n n";
+            position: relative;
+            transition: filter 0.3s ease; 
+            animation: fadeIn 1s 0s forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .Map {
+            grid-area: m;
+            background-color: #2b2c28;
+            padding: 75px 120px;
+
+        }
+
+        .Location {
+            grid-area: l;
+            background-color: #2b2c28;
+            color: #fffafb;
+            padding: 150px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .Newsletter_Img {
+            grid-area: n;
+            background-image: url('https://img.newspapers.com/img/img?user=6820185&id=383901263&clippingId=88374840&width=820&height=780&crop=143_275_3224_3068&rotation=0');
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 100px;
+        }
+
+
+        .Location h2, .Newsletter h2{
+            font-size: 50px;
+        }
+
+        .Newsletter{
+
+            grid-area: nl;
+            background-color:#a63446;
+            width: auto;
+            color:#151414;
+            padding: 100px;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+
+
+        #sidebar
+{
+    position: fixed;
+    height: 100%;
+    width: 70px;
+    min-width: 70px;
+    z-index: 1000;
+    transition: all .25s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    background-color: #151414;
+
+}
+#sidebar.expand
+{
+width: 280px;
+min-width: 260px;
+}
+#toggle-btn
+{
+background-color: transparent;
+cursor: pointer;
+border: 0;
+padding: 1rem 1.5rem;
+}
+
+#toggle-btn i{
+font-size: 1.5rem;
+color: white;
+}
+.sidebar-logo
+{
+margin: auto 0;
+}
+.sidebar-logo a{
+color: white;
+font-size: 1.15rem;
+font-weight: 600;
+}
+#sidebar:not(.expand) .sidebar-logo,#sidebar:not(.expand) a.sidebar-link span
+{
+display: none;
+}
+.sidebar-nav
+{
+padding: 2rem 0;
+flex: 1 1 auto;
+}
+a.sidebar-link
+{
+text-decoration: none;
+padding: .625rem 1.625rem;
+color: white;
+display: block;
+font-size: 1rem;
+white-space: nowrap;
+border-left: 3px solid transparent;
+}
+.sidebar-link i{
+font-size: 1.1rem;
+margin-right: .75rem ;
+}
+
+a.sidebar-link:hover
+{
+background-color: rgba(255,255,255,.075);
+border-left: 3px solid #A63446;
+}
+.sidebar-item{
+position: relative;
+}
+.sidebar:not(.expand) .sidebar-item .sidebar-dropdown
+{
+position: absolute;
+top: 0;
+left: 70px;
+background-color: #0e2238;
+padding: 0;
+min-width: 15rem;
+display: none;
+}
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown
+{
+display: block;
+max-height: 15rem;
+width: 100%;
+opacity: 1;
+}
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after{
+border: solid;
+border-width: 0 .075rem .075rem 0;
+content: "";
+display: inline-block;
+padding: 2px;
+position: absolute;
+right: 1.5rem;
+top: 1.4rem;
+transform: rotate(-135deg);
+transition: all .2s ease-out;
+z-index: 1;
+}
+#sidebar.expand ~ .Page {
+filter: blur(8px);
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after{
+transform: rotate(45deg);
+transition: all .2s ease-out;
+z-index: 1;
+}
+        .search-container {
+            font-family: monospace;
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            width: 40px; 
+            height: 40px;
+            transition: width 0.4s ease;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #151414;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #151414;
+            z-index: 5; 
+        }
+
+        .search-logo {
+            width: 20px;
+            height: 20px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtsLJlHAtkmhnk2DNBj3L_ZQEOnLaQJWAb2A&s'); /* Replace with your logo image URL */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.4s ease;
+        }
+
+     
+        .search-input {
+            width: 0;
+            height: 30px;
+            border: none;
+            padding: 0;
+            opacity: 0;
+            font-size: 16px;
+            transition: width 0.4s ease, opacity 0.4s ease;
+            background-color: transparent;
+            outline: none;
+            color: #fffafb;
+        }
+
+        
+        .search-container:hover {
+            width: 200px; 
+        }
+
+        .search-container:hover .search-input {
+            width: 100%; 
+            padding: 0 10px;
+            opacity: 1;
+        }
+
+        
+        .search-container:hover .search-logo {
+            opacity: 0;
+        }
+        .sidebar h2{
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media screen and (max-width:600px) {
+            .Page {
+            display: grid;
+            grid-template-columns: 1fr 1fr ;
+            grid-template-rows: 100px 1000px 1000px 1000px 1000px;
+            grid-template-areas:
+                "h h "
+                "m m "
+                "l l "
+                "nl nl "
+                "n n ";
+            position: relative;
+            transition: filter 0.3s ease; 
+            animation: fadeIn 1s 0s forwards;
+        }
+            
+        }
+
+
+        .site-footer {
+
+            flex-shrink: 0;
+            background-color: #151414;
+            color: #fffafb;
+            padding: 50px 0 20px;
+            z-index: 1;
+        }
+        
+        .site-footer h2 {
+            color: #fffafb;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-link a {
+            color: #fffafb;
+            text-decoration: none;
+        }
+        
+        .footer-link a:hover {
+            color: #A63446;
+        }
+        
+        /* Social media icons */
+        .footer-link.d-flex li {
+            margin-right: 15px;
+        }
+        
+        .footer-link.d-flex a {
+            font-size: 24px;
+            color: #fffafb;
+        }
+        
+        .footer-link.d-flex a:hover {
+            color: #A63446;
+        }  
+
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fffafb;
+            color: #151414;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        #back-to-top:hover {
+            opacity: 1;
+            background-color: #a63446;
+        }
+        
+        #back-to-top:active {
+            transform: scale(0.95);
+        }

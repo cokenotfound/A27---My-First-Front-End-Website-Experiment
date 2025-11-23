@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        * {
+            margin: 0;
+            font-family: monospace;
+        }
+        body {
+            overflow-x: hidden;
+        }
+        .Page {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 800px 800px 800px 800px;
+            grid-template-areas:
+                "h h h h h h"
+                "d d d d p p"
+                "m m l l l l"
+                "nl nl nl n n n";
+            position: relative;
+            transition: filter 0.3s ease; /* Smooth blur transition */
+            animation: fadeIn 1s 0s forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+
+        
+        .background-video {
+            grid-area: h;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 800px;
+            object-fit: cover;
+            z-index: 0; /* Ensure video stays at the back */
+        }
+
+        .Head {
+            grid-area: h;
+            position: relative; /* Ensure relative positioning for absolute children */
+            color: #fffafb;
+            text-align: center;
+            padding: 300px;
+        }
+
+        /* Add dark overlay to improve text visibility */
+        .Head::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
+            z-index: 1; /* Ensure it stays above video but below content */
+        }
+
+        .Head h1 {
+            position: relative;
+            z-index: 3; /* Ensure text stays above the overlay */
+            font-size: 100px;
+        }
+
+        .Description {
+            grid-area: d;
+            padding: 150px;
+            text-align: center;
+            color: #151414;
+            background-color: #fffafb;
+            font-size: 20px;
+            
+        }
+
+        .Poster {
+            grid-area: p;
+           
+            background-color: #151414;
+            background-size: cover;
+            animation: backgroundAndTextChange 15s infinite;
+        }
+
+        @keyframes backgroundAndTextChange {
+            0%, 25% { background-image: url(m1.jpg); }
+            26%, 50% { background-image: url(m2.jpg); }
+            51%, 75% { background-image: url(m3.jpg); }
+            76%, 100% { background-image: url(m4.jpg); }
+        }
+
+        .Map {
+            grid-area: m;
+            background-color: #2b2c28;
+            padding: 100px;
+        }
+
+        .Location {
+            grid-area: l;
+            background-color: #2b2c28;
+            color: #fffafb;
+            padding: 150px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .Newsletter_Img {
+            grid-area: n;
+            background-image: url('https://img.newspapers.com/img/img?user=6820185&id=383901263&clippingId=88374840&width=820&height=780&crop=143_275_3224_3068&rotation=0');
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 100px;
+        }
+
+        .Newsletter{
+
+            grid-area: nl;
+            background-color:#a63446;
+            width: auto;
+            color:#151414;
+            padding: 150px;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .Newsletter h2 {
+            font: monospace;
+        }
+
+        /* Sidebar styles */
+        .sidebar-checkbox {
+            display: none;
+        }
+
+        .sidebar-toggle-label {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 4;
+            color: #fffafb;
+            background-color: #151414;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .header {
+            height: 100px;
+            width: 100%;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            z-index: 4;
+        }
+        
+
+        .sidebar {
+            width: 400px;
+            height: 100vh;
+            background-color: black;
+            color: #fffafb;
+            position: fixed;
+            top: 0;
+            left: -400px; /* Hidden by default */
+            transition: left 0.3s ease;
+            z-index: 5; /* Ensure it appears above Page but below header */
+            padding-top: 75px;
+            overflow-y: auto;
+        }
+
+        /* Blur effect when the sidebar is open */
+        .sidebar-checkbox:checked ~ .Page {
+            filter: blur(5px); /* Apply blur */
+            pointer-events: none; /* Disable interactions */
+        }
+
+        
+
+        /* Sidebar visible when checkbox is checked */
+        .sidebar-checkbox:checked ~ .sidebar {
+            left: 0; /* Slide sidebar into view */
+        }
+
+        .close-btn {
+            font-size: 20px;
+            color: #fffafb;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+        }
+
+        .sidebar h2{
+            font-size: 35px;
+        }
+
+        .sidebar ul li a {
+            font-size: 20px;
+            color: #fffafb;
+            text-decoration: none;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #a63446;
+        }
+        .search-container {
+            position: fixed; /* Use absolute positioning to control placement */
+            top: 20px; /* Adjust top positioning as desired */
+            right: 20px; /* Position it before the 40% grid section */
+            width: 40px; /* Start with a small size to show only the logo */
+            height: 40px;
+            transition: width 0.4s ease; /* Smooth transition */
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #151414;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #151414;
+            z-index: 5; /* Ensure it appears on top */
+        }
+
+        /* Styling for the search logo */
+        .search-logo {
+            width: 20px;
+            height: 20px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtsLJlHAtkmhnk2DNBj3L_ZQEOnLaQJWAb2A&s'); /* Replace with your logo image URL */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Hide the input by default */
+        .search-input {
+            width: 0;
+            height: 30px;
+            border: none;
+            padding: 0;
+            opacity: 0;
+            font-size: 16px;
+            transition: width 0.4s ease, opacity 0.4s ease;
+            background-color: transparent;
+            outline: none;
+            color: #fffafb;
+        }
+
+        /* Hover effect: expand container and show input field */
+        .search-container:hover {
+            width: 200px; /* Adjust this to fit your desired input width */
+        }
+
+        /* Show the input field when container expands */
+        .search-container:hover .search-input {
+            width: 100%; /* Full width within container */
+            padding: 0 10px;
+            opacity: 1;
+        }
+
+        /* Hide logo when container expands */
+        .search-container:hover .search-logo {
+            opacity: 0;
+        }
+        .sidebar h2{
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <label for="sidebar-toggle" class="sidebar-toggle-label">☰</label>
+    </div>
+    <div class="search-container">  
+        <div class="search-logo"></div>
+        <input type="text" class="search-input" placeholder="Search...">
+    </div>
+    <!-- Sidebar -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-checkbox">
+    <div class="sidebar">
+        <label for="sidebar-toggle" class="close-btn">×</label>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="main.html" target="_self">Home</a></li>
+            <li><a href="shop.html" target="_self">Shop</a></li>
+            <li><a href="aboutus.html" target="_self">About Us</a></li>
+            <li><a href="#Location" target="_self">Contact</a></li>
+            <li><a href="login.html" target="_self">Login</a></li>
+        </ul>
+    </div>
+    <!-- Page Content -->
+    <div class="Page">
+        <div class="Head">
+            <video class="background-video" autoplay muted loop>
+                <source src="bgv.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h1>A27.</h1>
+            
+        </div>
+        <div class="Description">
+            <h2>FEATURED This Week.</h2>
+            <br>
+            Discover a fascinating array of intriguing characters in this collection of films - a blend of twisted comedy and neo-surrealism, all part of the captivating New Age Hipster Essentials.            
+            <br><br>
+            This collection showcases the works of renowned directors- David Lynch, Robert Altman, Spike Jonze, David Cronenberg, Michael Mann, and Martin Scorsese; each of which is an essential in their film discography.
+            <br><br>
+            Curated by self-acclaimed cinephiles.
+
+        </div>
+        <div class="Poster"></div>
+        <div class="Map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30378.49796996931!2d-73.97885009690188!3d40.73215298091438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a2e15c97d1%3A0x1152a7f60acb6f38!2sAcademy%20Records%20%26%20CDs!5e0!3m2!1sen!2sin!4v1731646703434!5m2!1sen!2sin" width="500px" height="600px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="Location" id="Location">
+            <h2>We are now OPEN.</h2>
+            <br>
+            Highlighting more than 100 of the most exceptional films worldwide, along with official Movie Posters, Soundtrack records and Screenplay scripts; A27 offers a rich collection of cinematic gems, brimming with endless inspiration in all its corners. We welcome imaginative individuals who appreciate cinema and are looking to be inspired. Join our community where you can participate in special screenings with guests and film club discussions and share your interpretations and be a part of the experience at our new offline store.
+            <br><br>
+            40° 44' 19.6404'' N
+            <br>
+            73° 59' 34.98'' W
+            <br><br>
+            <strong>Phone:</strong> +1 (123) 456-7890 <br>
+            <strong>Email:</strong> <a style="color: #fffafb;" href="mailto:support@dvdstore.com">support@dvdstore.com</a>
+        
+            
+        </div>
+        <div class="Newsletter">
+            <h2>Sign Up for our Newsletter.</h2>
+            <br>
+            Subscribe to our weekly newsletter showcasing top selections, box-office critiques, latest showbiz updates, and a special spotlight on upcoming filmmakers at the cost of a click.            
+            <br>
+            <br>
+            Curated with Heed and Heart.
+            <br>
+            <br>
+            <br>
+
+            <form >
+                <input style="background-color: #fffafb; padding: 5px 15px; margin-bottom: 15px;" type="text" id="name" name="name" placeholder="Name" required>
+                <br>
+                <input style="background-color: #fffafb; padding: 5px 15px; margin-bottom: 15px;" type="email" name="mail" id="mail" placeholder="youremail@xyz">
+                <br>
+                <button style="background-color: #151414; color: #fffafb; padding: 10px 20px;" type="submit" class="submit">Sign Up.</button>
+            </form>
+        </div>
+        <div class="Newsletter_Img">
+            
+        </div>
+    </div>
+</body>
+</html>

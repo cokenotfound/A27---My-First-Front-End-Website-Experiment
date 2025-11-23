@@ -1,0 +1,265 @@
+         footer{
+            height: 15px;
+            background-color: #151414;
+            color: #fffafb;
+            font-size: 10px;
+            text-align: center;
+            padding-top: 5px;        
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Parkinsans:wght@300..800&family=Playwrite+AU+VIC+Guides&family=Playwrite+IE+Guides&family=Texturina:ital,opsz,wght@0,12..72,100..900;1,12..72,100..900&display=swap');
+
+        *{
+            margin: 0px;
+            font-family: "Texturina", serif;
+  font-optical-sizing: auto;
+  font-weight:100;
+  font-style: normal;
+        }
+        h2,h3,h4{
+            font-family: "Playwrite AU VIC Guides", serif;
+  font-weight: 400;
+  font-style: normal;
+        }
+
+          
+        body {
+            overflow-x: hidden;
+        }
+        .Page {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 800px 800px;
+            grid-template-areas:
+                "h h h h h h"
+                "d d d d p p";
+            position: relative;
+            transition: filter 0.3s ease; 
+            animation: fadeIn 1s 0s forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+
+        
+        .background-video {
+            grid-area: h;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 800px;
+            object-fit: cover;
+            z-index: 0; 
+        }
+
+        .Head {
+            grid-area: h;
+            position: relative; 
+            color: #fffafb;
+            text-align: center;
+            padding: 150px;
+        }
+
+        .Head::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1; 
+        }
+
+        .Head h1 {
+            font-family: "Bebas Neue", serif;
+            font-weight: 400;
+            font-style: normal;
+            position: relative;
+            top: 30%;
+            z-index: 3; 
+            font-size: 100px;
+        }
+        .Head h4 {
+            font-family: "Bebas Neue", serif;
+            font-weight: 400;
+            font-style: normal;
+            position: relative;
+            top:95%;
+            z-index: 3; 
+            font-size: 25px;
+        }
+
+        .Description {
+            grid-area: d;
+            padding: 150px;
+            text-align: center;
+            color: #151414;
+            background-color: #fffafb;
+            font-size: 20px;
+            
+        }
+
+        .Poster {
+            grid-area: p;
+           
+            background-color: #151414;
+            background-size: cover;
+            animation: backgroundAndTextChange 15s infinite;
+        }
+
+        @keyframes backgroundAndTextChange {
+            0%, 25% { background-image: url(m1.jpg); }
+            26%, 50% { background-image: url(m2.jpg); }
+            51%, 75% { background-image: url(m3.jpg); }
+            76%, 100% { background-image: url(m4.jpg); }
+        }
+
+        .sidebar-checkbox {
+            display: none;
+        }
+
+        .sidebar-toggle-label {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 4;
+            color: #fffafb;
+            background-color: #151414;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .header {
+            height: 100px;
+            width: 100%;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            z-index: 4;
+        }
+        
+
+        .sidebar {
+            width: 400px;
+            height: 100vh;
+            background-color: black;
+            color: #fffafb;
+            position: fixed;
+            top: 0;
+            left: -400px; 
+            transition: left 0.3s ease;
+            z-index: 5; 
+            padding-top: 75px;
+            overflow-y: auto;
+        }
+
+        .sidebar-checkbox:checked ~ .Page {
+            filter: blur(5px); 
+            pointer-events: none; 
+        }
+
+        
+
+        .sidebar-checkbox:checked ~ .sidebar {
+            left: 0;
+        }
+
+        .close-btn {
+            font-size: 20px;
+            color: #fffafb;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+        }
+
+        .sidebar h2{
+            font-size: 35px;
+        }
+
+        .sidebar ul li a {
+            font-size: 20px;
+            color: #fffafb;
+            text-decoration: none;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #a63446;
+        }
+        .search-container {
+            position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            width: 40px;
+            height: 40px;
+            transition: width 0.4s ease; 
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #151414;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #151414;
+            z-index: 5; 
+        }
+
+        .search-logo {
+            width: 20px;
+            height: 20px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtsLJlHAtkmhnk2DNBj3L_ZQEOnLaQJWAb2A&s'); /* Replace with your logo image URL */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.4s ease;
+        }
+
+        .search-input {
+            width: 0;
+            height: 30px;
+            border: none;
+            padding: 0;
+            opacity: 0;
+            font-size: 16px;
+            transition: width 0.4s ease, opacity 0.4s ease;
+            background-color: transparent;
+            outline: none;
+            color: #fffafb;
+        }
+
+        .search-container:hover {
+            width: 200px; 
+        }
+
+        .search-container:hover .search-input {
+            width: 100%; 
+            padding: 0 10px;
+            opacity: 1;
+        }
+
+        .search-container:hover .search-logo {
+            opacity: 0;
+        }
+        .sidebar h2{
+            padding: 20px;
+            text-align: center;
+        }

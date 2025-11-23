@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <style>
+        *{
+            text-align: center;
+            font-family: monospace;
+            margin: 0;
+        }
+        .Page{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 200px 800px 800px 800px;
+            grid-template-areas: 
+            "h h h h  "
+            "p1 p1 p1 p1"
+            "p2 p2 p2 p2 "
+            "c c c c ";
+            animation: fadeIn 2s 0s forwards;
+        }
+        .Head{
+            grid-area: h;
+            background-color: #151414;
+            color: #fffafb;
+            padding: 50px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .Head h1{
+            font-size: 50px;
+        }
+        .Collection{
+            grid-area: c;
+            background-color: #a63446;
+            padding: 100px 300px 100px 300px;
+            text-align: center;
+            font-size: 20px;
+        }
+        .menu{
+            overflow: auto;
+            white-space: nowrap;
+            padding: 30px;
+        }
+        .Collection h2{
+            font-size: 30px;
+        }
+        
+        .P1{
+            grid-area: p1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding: 100px;
+        }
+
+        .P1 > div >img {
+            width: 398px;
+            height: auto;
+            border:solid #151414;
+        }
+        .P1 > div >img:hover {
+            width: 498px;
+            height: auto;
+            border:solid #151414;
+        }
+        
+        
+        .P2{
+            grid-area: p2;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding: 100px;
+        }
+
+        .P2 > div >img {
+            width: 398px;
+            height: auto;
+            border:solid #151414;
+        }
+        .P2 > div >img:hover {
+            width: 498px;
+            height: auto;
+            border:solid #151414;
+        }
+
+        .P1{
+            background-color: #fffafb;;
+        }
+
+        .P2{
+            background-color: #2b2b28;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="Page">
+        <div class="Head">
+            <h1>Our Collection.</h1>
+        </div>
+        <div class="P1">
+            <div>
+                <img src="m2.jpg" alt="T">
+            </div>
+            <div>
+                <img src="m4.jpg" alt="BV">
+            </div>
+            <div>
+                <img src="m6.jpg" alt="rb">
+            </div>
+        </div>
+        <div class="P2">
+            <div>
+                <img src="m1.jpg" alt="TP">
+            </div>
+            <div>
+                <img src="m3.jpg" alt="BJM">
+            </div>
+            <div>
+                <img src="m5.jpg" alt="NL">
+            </div>
+        </div>
+
+        <div class="Collection">
+            <h2>New Age Hipster Essentials.</h2>
+            <br>
+
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, officia accusantium facere aperiam ratione molestias cum reprehenderit dignissimos quidem quas asperiores animi nemo est consequuntur libero temporibus quia a voluptatum distinctio! Fugiat, exercitationem deleniti? Quo eaque dignissimos, enim reiciendis dolore, voluptatem laudantium autem non quam sed quibusdam aliquam dolorum eveniet eum, ut cum? Nam expedita exercitationem laborum, vitae voluptatibus officiis accusantium amet nobis, quas, laboriosam voluptate doloribus! Vitae, quaerat. Soluta officiis consequatur veniam exercitationem? Delectus ab iure, culpa corrupti iste animi fugiat molestias dolores laudantium et! Magnam quasi omnis voluptatum ut dolore! Amet dolorum maxime fuga, vitae quia reiciendis asperiores!
+            <div class="menu">
+                <img src="d1.jpg" alt="menuu" height="400px">
+                <img src="d2.jpg" alt="menuu" height="400px">
+                <img src="d3.jpg" alt="menuu" height="400px">
+                <img src="d4.jpg" alt="menuu" height="400px">
+                <img src="d5.jpg" alt="menuu" height="400px">
+                <img src="d6.jpg" alt="menuu" height="400px">
+                <img src="d7.jpg" alt="menuu" height="400px">
+                <img src="d8.jpg" alt="menuu" height="400px">
+                <img src="d9.jpg" alt="menuu" height="400px">
+                <img src="d10.jpg" alt="menuu" height="400px">
+    
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

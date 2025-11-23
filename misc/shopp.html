@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <style>
+        * {
+            text-align: center;
+            font-family: monospace;
+            margin: 0;
+        }
+
+        .Page {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 150px 800px 800px 800px;
+            grid-template-areas: 
+            "h h h h"
+            "p1 p1 p1 p1"
+            "p2 p2 p2 p2"
+            "c c c c";
+            animation: fadeIn 1s 0s forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .Head {
+            grid-area: h;
+            background-color: #151414;
+            color: #fffafb;
+            padding: 40px;
+        }
+
+        .Head h1 {
+            font-size: 50px;
+        }
+
+        .Collection {
+            grid-area: c;
+            background-color: #a63446;
+            padding: 100px 300px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .menu {
+            overflow: auto;
+            white-space: nowrap;
+            padding: 30px;
+        }
+
+        .Collection h2 {
+            font-size: 30px;
+        }
+
+        .P1, .P2 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding: 100px;
+        }
+
+        .P1 {
+            grid-area: p1;
+            background-color: #fffafb;
+        }
+
+        .P2 {
+            grid-area: p2;
+            background-color: #2b2b28;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 398px;
+            height: auto;
+            border: solid #151414;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .image-container img:hover {
+            width: 498px;
+            height: auto;
+            border: solid #151414;
+            filter: blur(8px);
+        }
+
+        .image-container .overlay {
+            position: absolute;
+            top: 40%;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            background-color: transparent;
+            color: #fffafb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            font-size: 20px;
+        }
+
+        .image-container .addtocart {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #a63446;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fffafb;
+            opacity: 0;
+            cursor: pointer;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .image-container:hover .overlay {
+            opacity: 1;
+        }
+
+        .image-container:hover .addtocart {
+            opacity: 1;
+        }
+
+        .addtocart:hover {
+            background-color: #b97375;
+        }
+
+        /* Hide the overlay text when hovering on the "Add to CART" button */
+        .image-container .addtocart:hover + .overlay {
+            opacity: 0;
+        }
+
+        /* Sidebar styles */
+        .sidebar-checkbox {
+            display: none;
+        }
+
+        .sidebar-toggle-label {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 4;
+            color: #fffafb;
+            background-color: #151414;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .header {
+            height: 100px;
+            width: 100%;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            z-index: 4;
+        }
+        
+
+        .sidebar {
+            width: 400px;
+            height: 100vh;
+            background-color: black;
+            color: #fffafb;
+            position: fixed;
+            top: 0;
+            left: -400px; /* Hidden by default */
+            transition: left 0.3s ease;
+            z-index: 5; /* Ensure it appears above Page but below header */
+            padding-top: 75px;
+            overflow-y: auto;
+        }
+
+        /* Blur effect when the sidebar is open */
+        .sidebar-checkbox:checked ~ .Page {
+            filter: blur(5px); /* Apply blur */
+            pointer-events: none; /* Disable interactions */
+        }
+
+        /* Sidebar visible when checkbox is checked */
+        .sidebar-checkbox:checked ~ .sidebar {
+            left: 0; /* Slide sidebar into view */
+        }
+
+        .close-btn {
+            font-size: 20px;
+            color: #fffafb;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+        }
+
+        .sidebar h2{
+            font-size: 35px;
+        }
+
+        .sidebar ul li a {
+            font-size: 20px;
+            color: #fffafb;
+            text-decoration: none;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #A63446;
+        }
+        .search-container {
+            position: fixed; /* Use absolute positioning to control placement */
+            top: 20px; /* Adjust top positioning as desired */
+            right: 20px; /* Position it before the 40% grid section */
+            width: 40px; /* Start with a small size to show only the logo */
+            height: 40px;
+            transition: width 0.4s ease; /* Smooth transition */
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #151414;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #151414;
+            z-index: 5; /* Ensure it appears on top */
+        }
+
+        /* Styling for the search logo */
+        .search-logo {
+            width: 20px;
+            height: 20px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtsLJlHAtkmhnk2DNBj3L_ZQEOnLaQJWAb2A&s'); /* Replace with your logo image URL */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Hide the input by default */
+        .search-input {
+            width: 0;
+            height: 30px;
+            border: none;
+            padding: 0;
+            opacity: 0;
+            font-size: 16px;
+            transition: width 0.4s ease, opacity 0.4s ease;
+            background-color: transparent;
+            outline: none;
+            color: #fffafb;
+        }
+
+        /* Hover effect: expand container and show input field */
+        .search-container:hover {
+            width: 200px; /* Adjust this to fit your desired input width */
+        }
+
+        /* Show the input field when container expands */
+        .search-container:hover .search-input {
+            width: 100%; /* Full width within container */
+            padding: 0 10px;
+            opacity: 1;
+        }
+
+        /* Hide logo when container expands */
+        .search-container:hover .search-logo {
+            opacity: 0;
+        }
+        .sidebar h2{
+            padding: 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <label for="sidebar-toggle" class="sidebar-toggle-label">☰</label>
+    </div>
+    <div class="search-container">  
+        <div class="search-logo"></div>
+        <input type="text" class="search-input" placeholder="Search...">
+    </div>
+    <!-- Sidebar -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-checkbox">
+    <div class="sidebar">
+        <label for="sidebar-toggle" class="close-btn">×</label>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="main.html" target="_self">Home</a></li>
+            <li><a href="shop.html" target="_self">Shop</a></li>
+            <li><a href="aboutus.html" target="_self">About Us</a></li>
+            <li><a href="#contact" target="_self">Contact</a></li>
+            <li><a href="login.html" target="_self">Login</a></li>
+        </ul>
+    </div>
+    <div class="Page">
+        <div class="Head">
+            <h1>Our Collection.</h1>
+        </div>
+        <div class="P1">
+            <div class="image-container">
+                <img src="m2.jpg" alt="T">
+                <div class="overlay">
+                    Tonight, his take home pay is $410,000… tax free.<br><br>
+                    Micheal Mann's take on 80's retro noir cinema.
+                </div>
+                <div class="addtocart">Add to CART</div>
+            </div>
+            <div class="image-container">
+                <img src="m4.jpg" alt="BV">
+                <div class="overlay">
+                    It’s a strange world.
+                    <br><br>Explore David's Lynch strange sub-urbian town.
+                </div>
+                <div class="addtocart">Add to CART</div>
+            </div>
+            <div class="image-container">
+                <img src="m6.jpg" alt="rb">
+                <div class="overlay">
+                    I don’t go down for nobody.<br><br>
+                    Martin Scorsese's comeback film, debuting iconic De Niro-Pesci duo.
+                </div>
+                <div class="addtocart">Add to CART</div>
+            </div>
+        </div>
+        <div class="P2">
+            <div class="image-container">
+                <img src="m1.jpg" alt="TP">
+                <div class="overlay">
+                    Everything you’ve heard is true!<br><br>
+                    The ultimate meta-commentary on hollywood and showbiz.
+                </div>
+                <div class="addtocart">Add to CART</div>
+            </div>
+            <div class="image-container">
+                <img src="m3.jpg" alt="BJM">
+                <div class="overlay">
+                    Ever wanted to be someone else? Now you can.
+                    <br><br>
+                    Charlie Kaufman's sad comedy.
+                </div>
+                <div class="addtocart">Add to CART</div>
+            </div>
+            <div class="image-container">
+                <img src="m5.jpg" alt="NL">
+                <div class="overlay">
+                    EXterMINate ALL RatIONAL ThoughT.<br><br>
+                    Bug Infested Psychedelia.
+                </div>
+                <div class="addtocart">Add to CART</div>
+            </div>
+        </div>
+        <div class="Collection">
+            <h2>New Age Hipster Essentials.</h2>
+            <br>
+            From small town sub-urbia where everyone knows everything and nothing; to Lost Metropolitian where everyone breathes on top of each other and when one falters, everything is shambles. Dwelve into a world of characters filled with surrealism and existensialism; contrasting cohesively.
+
+
+
+            <div class="menu">
+                <img src="d1.jpg" alt="menuu" height="400px">
+                <img src="d2.jpg" alt="menuu" height="400px">
+                <img src="d3.jpg" alt="menuu" height="400px">
+                <img src="d4.jpg" alt="menuu" height="400px">
+                <img src="d5.jpg" alt="menuu" height="400px">
+                <img src="d6.jpg" alt="menuu" height="400px">
+                <img src="d7.jpg" alt="menuu" height="400px">
+                <img src="d8.jpg" alt="menuu" height="400px">
+                <img src="d9.jpg" alt="menuu" height="400px">
+                <img src="d10.jpg" alt="menuu" height="400px">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

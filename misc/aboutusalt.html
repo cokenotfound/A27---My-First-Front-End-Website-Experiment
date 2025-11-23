@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        *{
+            margin: 0px;
+            font-family: monospace;
+        }
+
+        .Page{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 200px 800px 800px 800px 800px;
+            grid-template-areas: 
+            "h h h h h"
+            "d1 d1 d1 p1 p1"
+            "p2 p2 d2 d2 d2"
+            "d3 d3 d3 p3 p3"
+            "p4 p4 d4 d4 d4"
+            ;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .h{
+            padding:50px;
+            text-align: center;
+            grid-area: h;
+            background-color: #fffafb;
+        }
+        .h h1{
+            font-size: 50px;
+        }
+        .d1{
+            grid-area: d1;
+        }
+        .d2{
+            grid-area: d2;
+        }
+        .d3{
+            grid-area: d3;
+        }
+        .d4{
+            grid-area: d4;
+        }
+
+        .d1, .d3{
+            padding: 150px;
+            color: #fffafb;
+            background-color: #2b2b28;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .d2, .d4{
+            padding: 150px;
+            color: #131515;
+            background-color: #a63446;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .d1 h2, .d2 h2, .d3 h2, .d4 h2{
+            font-size: 35px;
+        }
+
+        .p1{
+            grid-area: p1;
+            background-image: url(p1.jpg);
+        }
+
+        .p2{
+            grid-area: p2;
+            background-image: url(p2.jpg);
+        }
+
+        .p3{
+            grid-area: p3; 
+            background-image: url(p3.jpg);    
+        }
+
+        .p4{
+            grid-area: p4; 
+            background-image: url(p4.jpg);
+        }
+
+        .p1, .p2, .p3 , .p4
+        {
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .ef{
+            grid-area: ef;
+            background-color: #fffafb;
+            color: #131515;
+        }
+
+
+        /* Sidebar styles */
+        .sidebar-checkbox {
+            display: none;
+        }
+
+        .sidebar-toggle-label {
+            font-size: 20px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 4;
+            color: #fffafb;
+            background-color: #151414;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .header {
+            height: 100px;
+            width: 100%;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            z-index: 4;
+        }
+        
+
+        .sidebar {
+            width: 400px;
+            height: 100vh;
+            background-color: black;
+            color: #fffafb;
+            position: fixed;
+            top: 0;
+            left: -400px; /* Hidden by default */
+            transition: left 0.3s ease;
+            z-index: 5; /* Ensure it appears above Page but below header */
+            padding-top: 75px;
+            overflow-y: auto;
+        }
+
+
+        /* Sidebar visible when checkbox is checked */
+        .sidebar-checkbox:checked ~ .sidebar {
+            left: 0; /* Slide sidebar into view */
+        }
+
+        .close-btn {
+            font-size: 20px;
+            color: #fffafb;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+        }
+
+        .sidebar h2{
+            font-size: 35px;
+        }
+
+        .sidebar ul li a {
+            font-size: 20px;
+            color: #fffafb;
+            text-decoration: none;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #a63446;
+        }
+        .search-container {
+            position: fixed; /* Use absolute positioning to control placement */
+            top: 20px; /* Adjust top positioning as desired */
+            right: 20px; /* Position it before the 40% grid section */
+            width: 40px; /* Start with a small size to show only the logo */
+            height: 40px;
+            transition: width 0.4s ease; /* Smooth transition */
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #151414;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid #151414;
+            z-index: 5; /* Ensure it appears on top */
+        }
+
+        /* Styling for the search logo */
+        .search-logo {
+            width: 20px;
+            height: 20px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtsLJlHAtkmhnk2DNBj3L_ZQEOnLaQJWAb2A&s'); /* Replace with your logo image URL */
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Hide the input by default */
+        .search-input {
+            width: 0;
+            height: 30px;
+            border: none;
+            padding: 0;
+            opacity: 0;
+            font-size: 16px;
+            transition: width 0.4s ease, opacity 0.4s ease;
+            background-color: transparent;
+            outline: none;
+            color: #fffafb;
+        }
+
+        /* Blur effect when the sidebar is open */
+        .sidebar-checkbox:checked ~ .Page {
+            filter: blur(10px); /* Apply blur */
+            pointer-events: none; /* Disable interactions */
+        }
+        
+        /* Hover effect: expand container and show input field */
+        .search-container:hover {
+            width: 200px; /* Adjust this to fit your desired input width */
+        }
+
+        /* Show the input field when container expands */
+        .search-container:hover .search-input {
+            width: 100%; /* Full width within container */
+            padding: 0 10px;
+            opacity: 1;
+        }
+
+        /* Hide logo when container expands */
+        .search-container:hover .search-logo {
+            opacity: 0;
+        }
+        .sidebar h2{
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <label for="sidebar-toggle" class="sidebar-toggle-label">☰</label>
+    </div>
+    <div class="search-container">  
+        <div class="search-logo"></div>
+        <input type="text" class="search-input" placeholder="Search...">
+    </div>
+    <!-- Sidebar -->
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-checkbox">
+    <div class="sidebar">
+        <label for="sidebar-toggle" class="close-btn">×</label>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="#home" target="_blank">Home</a></li>
+            <li><a href="#shop" target="_blank">Shop</a></li>
+            <li><a href="aboutus.html" target="_blank">About Us</a></li>
+            <li><a href="#contact" target="_blank">Contact</a></li>
+            <li><a href="login.html" target="_blank">Login</a></li>
+        </ul>
+    </div>
+    <div class="Page">
+    <input type="checkbox" id="sidebar-toggle" class="sidebar-checkbox">
+        <label for="sidebar-toggle" class="sidebar-toggle-label">☰</label>
+    
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <label for="sidebar-toggle" class="close-btn">×</label>
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="h">
+            <h1>About Us.</h1>
+        </div>
+        <div class="d1">
+            <h2>Why?</h2>
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, sed.<br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique impedit est eligendi, corrupti minima laudantium?<br>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae corporis fuga eligendi repellendus optio dolorum. Vitae debitis hic fugiat fuga.        
+        </div>
+        <div class="p1">
+        </div>
+        <div class="d2">
+            <h2>Where?</h2>
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, sed.<br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique impedit est eligendi, corrupti minima laudantium?<br>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae corporis fuga eligendi repellendus optio dolorum. Vitae debitis hic fugiat fuga.
+        </div>
+        <div class="p2">
+        </div>
+
+        <div class="d3">
+            <h2>When?</h2>
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, sed.<br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique impedit est eligendi, corrupti minima laudantium?<br>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae corporis fuga eligendi repellendus optio dolorum. Vitae debitis hic fugiat fuga.        
+        </div>
+
+        <div class="p3">
+        </div>
+
+        <div class="d4">
+            <h2>Who?</h2>
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, sed.<br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique impedit est eligendi, corrupti minima laudantium?<br>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae corporis fuga eligendi repellendus optio dolorum. Vitae debitis hic fugiat fuga.        
+        </div>
+
+        <div class="p4">
+        </div>
+        
+    </div>
+    
+</body>
+</html>
