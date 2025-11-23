@@ -193,17 +193,19 @@ list-style: none;
 
 #sidebar
 {
+
     position: fixed;
+    top: 0; /* Ensure it starts at the top */
+    left: 0;
     height: 100%;
     width: 70px;
     min-width: 70px;
-    z-index: 1000;
-    transition: all .25s ease-in-out;
+    z-index: 1001; /* Higher than header if needed */
     display: flex;
     flex-direction: column;
     background-color: #151414;
-
 }
+
 #sidebar.expand
 {
 width: 280px;
